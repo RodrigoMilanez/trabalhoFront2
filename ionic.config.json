@@ -1,0 +1,7 @@
+{
+  "name": "trabalhoIIFront",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
