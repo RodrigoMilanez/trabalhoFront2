@@ -5,13 +5,14 @@ import { EquipePage } from './equipe.page';
 
 const routes: Routes = [
   {
-    path: 'equipes',
+    path: '',
     component: EquipePage
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  
   exports: [RouterModule],
 })
 export class EquipePageRoutingModule {}

@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Carros</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-label>
+    <ion-list *ngFor="let carro of carros">
+      <ion-item >
+          <ion-label>{{carro.placa}} {{carro.chassi}} |  </ion-label>
+        <ion-label> <h3> {{carro.equipe.nome}} | {{carro.piloto.nome}} </h3> </ion-label>
+    </ion-item>
+    </ion-list>
+  </ion-label>
+  </ion-content>

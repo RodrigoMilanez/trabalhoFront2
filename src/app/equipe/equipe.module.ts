@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EquipePageRoutingModule } from './equipe-routing.module';
 
 import { EquipePage } from './equipe.page';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EquipePageRoutingModule
+    EquipePageRoutingModule,
+    HttpClientModule
   ],
   declarations: [EquipePage]
 })

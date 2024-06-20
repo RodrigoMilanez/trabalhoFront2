@@ -1,16 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Equipef</ion-title>
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Equipes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Equipef</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-content>
-    <h1></h1>
+    <ion-label>
+    <ion-list>
+      <ion-item *ngFor="let equipe of equipes">
+          <h1>{{equipe.numero}} {{equipe.nome}} |  </h1>
+          <h3>  {{equipe.origem}}  </h3>
+      </ion-item>
+    </ion-list>
+  </ion-label>
   </ion-content>
-</ion-content>
+
