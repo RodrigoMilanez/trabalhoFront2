@@ -1,0 +1,35 @@
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Equipes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content>
+    <ion-label>
+    <ion-list>
+      <ion-item *ngFor="let equipe of equipes">
+          <h1>{{equipe.numero}} {{equipe.nome}} | {{equipe.origem}} Pilotos ativos: {{equipe.pilotosAtivos}} </h1>
+          <h3>  {{equipe.pilotos.nome}}  </h3>
+          <ion-buttons>
+            <ion-button color="primary" [routerLink]="['edicao', equipe.id]">
+              <ion-icon name="create" slot="icon-only"></ion-icon> 
+            </ion-button>
+            <ion-button color="primary" (click)="confirmarExclusao(equipe)">
+              <ion-icon name="trash"  slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+      </ion-item>
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['cadastro']">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-list>
+  </ion-label>
+  </ion-content>
+

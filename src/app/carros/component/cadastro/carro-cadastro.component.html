@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Cadastro de Carros</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form [formGroup]="carroForm" (ngSubmit)="onSubmit()">
+
+        <ion-item>
+            <ion-input formControlName="placa" type="text" placeholder="Placa" label="Título"
+                labelPlacement="floating"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-item>
+                <ion-select formControlName="equipe" label="equipes" value="" multiple="false"
+                    placeholder="Selecione a equipe" [compareWith]="compareWith">
+                    <ion-select-option *ngFor="let equipe of equipes" [value]="equipe">
+                        {{equipe.nome}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-item>
+
+        <ion-item>
+            <ion-item>
+                <ion-select formControlName="piloto" label="pilotos" value="" multiple="false"
+                    placeholder="Selecione o piloto" [compareWith]="compareWith">
+                    <ion-select-option *ngFor="let piloto of pilotos" [value]="piloto">
+                        {{piloto.nome}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-item>
+
+        <ion-note class="ion-padding" color="danger" *ngIf="carroForm.get('equipes')?.invalid &&
+        (carroForm.get('equipes')?.dirty || carroForm.get('equipes')?.touched)">
+            <span *ngIf="carroForm.get('equipes')?.errors?.['carrosInvalido']">
+                Devem ser selecionados no mínimo 1 autor e no máximo 10.
+            </span>
+        </ion-note>
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-button type="submit" >
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+        </ion-fab>
+
+    </form>
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

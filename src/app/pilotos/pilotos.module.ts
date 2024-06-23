@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { PilotosPageRoutingModule } from "./pilotos-rounting.module";
 import { PilotosListaComponent } from "./component/pilotos-lista.page";
+import { PilotoCadastroComponent } from "./component/cadastro/piloto-cadastro.component";
+//import { PilotoCadastroComponent } from "./component/cadastro/piloto-cadastro.component";
 
 @NgModule({
     imports: [
@@ -15,6 +17,6 @@ import { PilotosListaComponent } from "./component/pilotos-lista.page";
       PilotosPageRoutingModule,
       HttpClientModule,
     ],
-    declarations: [PilotosListaComponent/*, AutoresCadastroComponent*/]
+    declarations: [PilotosListaComponent, PilotoCadastroComponent]
   })
   export class PilotosPageModule {}

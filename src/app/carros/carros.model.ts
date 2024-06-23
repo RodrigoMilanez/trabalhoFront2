@@ -2,14 +2,12 @@ import { EquipeInterface } from "../equipe/interfaces/equipeModel";
 import { PilotoInterface } from "../pilotos";
 
 export interface CarroInterface {
-    id?: string | null;
+    id?: string;
     chassi: number;
     fabricacao: Date;
     placa:string
-    numero: number | null;
-    status: string;
-    equipe: EquipeInterface ;
-    piloto: PilotoInterface ;
+    equipes: EquipeInterface[] ;
+    pilotos: PilotoInterface[] ;
 
 }
 

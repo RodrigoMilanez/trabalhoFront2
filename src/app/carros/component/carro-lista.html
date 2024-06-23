@@ -1,19 +1,49 @@
 <ion-header>
-    <ion-toolbar color="primary">
+  <ion-toolbar color="primary">
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+          <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Carros</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-label>
-    <ion-list *ngFor="let carro of carros">
-      <ion-item >
-          <ion-label>{{carro.placa}} {{carro.chassi}} |  </ion-label>
-        <ion-label> <h3> {{carro.equipe.nome}} | {{carro.piloto.nome}} </h3> </ion-label>
-    </ion-item>
-    </ion-list>
-  </ion-label>
-  </ion-content>
+      <ion-title>
+          Listagem de carros
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      <ion-item *ngFor="let carro of carros">
+          <ion-label class="carro-placa">
+              <h1>{{carro.placa}}</h1>
+              <h2>{{carro.chassi}}</h2>
+              <h3>
+                  <strong>
+                      Equipe
+                  </strong>
+              </h3>
+              <ul>
+                  <li *ngFor="let equipe of carro.equipes">
+                      <h3 class="equipe">{{equipe.id}}</h3>
+                  </li>
+              </ul>
+              <h3>
+                <strong>
+                    Piloto
+                </strong>
+            </h3>
+            <ul>
+                <li *ngFor="let piloto of carro.pilotos">
+                    <h3 class="piloto">{{piloto.nome}}</h3>
+                </li>
+            </ul>
+              <h3><strong>Ano de fabricação</strong>: {{carro.fabricacao}}</h3>
+              <ion-button (click)="excluir(carro)">Excluir</ion-button>
+              <ion-button [routerLink]="['edicao', carro.id]">Editar</ion-button>
+          </ion-label>
+      </ion-item>
+
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [routerLink]="['novo']">
+          <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+</ion-content>

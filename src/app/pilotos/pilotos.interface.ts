@@ -1,21 +1,30 @@
 import { CarroInterface } from "../carros";
-import { EquipeInterface } from "../equipe/interfaces/equipeModel";
+import { isNumber, isString } from "../core/functions";
+import { EquipeInterface } from "../equipe";
+import { PilotoInterface } from "./piloto.model";
 import { StatusEnum } from "./types/statusEnum";
 
-export interface PilotoInterface {
-    id?: string | null;
+export class Piloto {
+    id?: string;
     nome: string;
     dataNasc: Date;
-    numero: number | null;
+    numero: number;
     status: StatusEnum;
     equipe: EquipeInterface[];
     carro: CarroInterface[];
+  
 
+    constructor(data: PilotoInterface) {
+        this.id = isString(data.id);
+        this.nome = isString(data.nome)
+        this.numero = isNumber(data.numero)
+        this.dataNasc = (data.dataNasc);
+        this.status = data.status;
+        this.equipe = data.equipe;
+        this.carro = data.carro;
+        
+    }
 }
-
-
-
-
 /**
     "dataNasc": "1997-09-01",
     "numero": 95,

@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Cadastro de Pilotos</ion-title>
+    </ion-toolbar>
+ </ion-header>
+  <ion-content>
+    <form [formGroup]="pilotoForm">
+
+
+        <ion-item>
+            <ion-label position="floating">Nome: </ion-label>
+            <ion-input formControlName="nome" type="text"> </ion-input>
+            <ion-text color="danger" >
+              </ion-text>
+          </ion-item>
+
+
+      <ion-item>
+        <ion-label position="floating">Numero: </ion-label>
+        <ion-input formControlName="numero" type="number"> </ion-input>
+        <ion-text
+          color="danger"
+        >
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Data de nascimento: </ion-label>
+  
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+  
+        <ion-modal [keepContentsMounted]="true">
+          <ion-datetime id="datetime"
+          formControlName="dataNasc"></ion-datetime>
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              formControlName="dataNasc"
+              display-format="DD de MMMM de YYYY"
+              min="1923-01-01"
+              presentation="date"
+              showDefaultButtons="true"
+              doneText="Selecionar"
+              cancelText="Cancelar"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-item>
+        <ion-item>
+            <ion-select formControlName="equipe" label="Equipe" value="" multiple="false"
+                placeholder="Selecione a equipe" [compareWith]="compareWith">
+                <ion-select-option *ngFor="let equipe of equipes" [value]="equipe">
+                    {{equipe.nome}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-item>
+  
+      <ion-note class="ion-padding" color="danger" *ngIf="pilotoForm.get('equipes')?.invalid &&
+        (pilotoForm.get('Equipes')?.dirty || pilotoForm.get('equipes')?.touched)">
+            <span *ngIf="pilotoForm.get('equipes')?.errors?.['equipesInvalido']">
+                Devem ser selecionados no mínimo uma equipe.
+            </span>
+        </ion-note>
+
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-button type="submit" >
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+        </ion-fab>
+
+</form>
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

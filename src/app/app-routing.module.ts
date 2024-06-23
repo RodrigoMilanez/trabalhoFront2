@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { EquipePage } from './equipe/equipe.page';
+import { EquipePage } from './equipe/component/equipe.page';
 import { EquipePageModule } from './equipe/equipe.module';
 import { HttpClient } from '@angular/common/http';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'equipe',
     pathMatch: 'full'
   },
   {

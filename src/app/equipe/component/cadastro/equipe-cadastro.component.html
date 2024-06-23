@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Cadastro de Equipes</ion-title>
+    </ion-toolbar>
+ </ion-header>
+  <ion-content>
+    <form [formGroup]="equipeForm">
+      <ion-item>
+        <ion-label position="floating">Nome: </ion-label>
+        <ion-input formControlName="nome" type="text"> </ion-input>
+        <ion-text
+          color="danger"
+          *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)"
+        >
+          <small *ngIf="nome?.errors?.['required']">
+            O campo nome é obrigatório
+          </small>
+          <small *ngIf="nome?.errors?.['minlength']">
+            O campo nome deve conter no mínimo
+            {{ nome?.errors?.['minlength'].requiredLength }} caracteres
+          </small>
+          <small *ngIf="nome?.errors?.['maxlength']">
+            O campo nome deve conter no máximo
+            {{ nome?.errors?.['maxlength'].requiredLength }} caracteres
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Origem: </ion-label>
+        <ion-input formControlName="origem" type="text"> </ion-input>
+        <ion-text *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)"
+        >
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">numero: </ion-label>
+        <ion-input formControlName="numero" type="number"> </ion-input>
+        <ion-text
+          color="danger"
+        >
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Data de Fundação: </ion-label>
+  
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+  
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              formControlName="dataFundacao"
+              display-format="DD de MMMM de YYYY"
+              min="1923-01-01"
+              presentation="date"
+              show="true"
+              doneText="Selecionar"
+              cancelText="Cancelar"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Numero</ion-label>
+        </ion-list-header>
+        <ion-radio-group name="numero" formControlName="numero">
+        </ion-radio-group>
+      </ion-list>
+  
+      <ion-fab vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="salvar()" [disabled]="!equipeForm.valid">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </form>
+  </ion-content>

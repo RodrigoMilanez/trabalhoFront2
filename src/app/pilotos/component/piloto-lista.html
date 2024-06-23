@@ -1,19 +1,30 @@
 <ion-header>
-    <ion-toolbar color="primary">
+  <ion-toolbar color="primary">
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+          <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Pilotos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-label>
-    <ion-list>
+      <ion-title>
+          Listagem de pilotos
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
       <ion-item *ngFor="let piloto of pilotos">
-          <h1>{{piloto.numero}} {{piloto.nome}} |  </h1>
-          <h3> {{piloto.equipe.nome}} </h3>
+          <ion-label class="piloto-placa">
+              <h1>{{piloto.nome}}</h1>
+              <h2>Numero : {{piloto.numero}}</h2>
+              
+              <h3><strong>Data de nascimento</strong>: {{piloto.dataNasc}}</h3>
+              <ion-button (click)="excluir(piloto)">Excluir</ion-button>
+           </ion-label>
       </ion-item>
-    </ion-list>
-  </ion-label>
-  </ion-content>
+      
+
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [routerLink]="['novo']">
+          <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+</ion-content>

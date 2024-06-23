@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { EquipePageRoutingModule } from './equipe-routing.module';
 
-import { EquipePage } from './equipe.page';
+import { EquipePage } from './component/equipe.page';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EquipeCadastroComponent } from './component/cadastro/equipe-cadastro.component';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FormsModule,
     IonicModule,
     EquipePageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  declarations: [EquipePage]
+  declarations: [EquipePage, EquipeCadastroComponent]
 })
 export class EquipePageModule {}

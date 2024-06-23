@@ -1,44 +1,51 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { CarroInterface} from "../carros.model";
+import { CarroInterface } from "../carros.model";
+import { Observable, map, tap } from "rxjs";
+import { Carro } from "../carros.interface";
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class CarroService {
-  
-    private url = 'http://localhost:3000/carros';
-  
-    constructor(
+  providedIn: 'root'
+})
+export class CarroService {
+
+
+  API_URL = 'http://localhost:3000/carros/';
+
+  constructor(
       private httpClient: HttpClient
-    ) {}
-  
-    getCarros(): Observable<CarroInterface[]> {
-      return this.httpClient.get<CarroInterface[]>(this.url);
-    }
-  
-    excluir(id: string): Observable<Object> {
-      return this.httpClient.delete(`${this.url}/${id}`);
-    }
-  
-    getCarro(id: string): Observable<CarroInterface> {
-      return this.httpClient.get<CarroInterface>(`${this.url}/${id}`);
-    }
-  
-    private adicionar(carro: CarroInterface)  {
-      return this.httpClient.post(this.url, carro);
-    }
-  
-    private atualizar(carro: CarroInterface) {
-      return this.httpClient.put(`${this.url}/${carro.id}`, carro);
-    }
-  
-    salvar(carro: CarroInterface) {
-      if(carro.id) {
-        return this.atualizar(carro);
-      } else {
-        return this.adicionar(carro);
-      }
-    }
+  ) { }
+
+  save(livro: any) {
+      return this.httpClient
+          .post<CarroInterface>(this.API_URL, livro);
   }
+
+  getCarro(id: string) {
+      return this.httpClient.get<CarroInterface>(this.API_URL + id);
+  }
+
+  getCarros(): Observable<Carro[]> {
+      return this.httpClient
+          .get<Carro[]>(this.API_URL)
+          .pipe(
+              tap((data) => console.log('Data: ', data)),
+              map((data) => {
+                  return data.map(item => new Carro(item))
+              }),
+              tap((data) => console.log('Data: ', data)),
+          )
+  }
+
+  update(id: string, carro: any) {
+      return this.httpClient.put(
+          this.API_URL + id, carro
+      )
+  }
+
+  remove(carro: Carro) {
+      return this.httpClient.delete(
+          this.API_URL + carro.id
+      )
+  }
+}

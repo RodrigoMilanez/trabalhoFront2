@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { CarrosPageRoutingModule } from "./carros-rounting.module";
 import { CarrosListaComponent } from "./component/carro-lista.page";
+import { CarroCadastroComponent } from "./component/cadastro/carro-cadastro.component";
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { CarrosListaComponent } from "./component/carro-lista.page";
       IonicModule,
       CarrosPageRoutingModule,
       HttpClientModule,
+      ReactiveFormsModule
     ],
-    declarations: [CarrosListaComponent/*, AutoresCadastroComponent*/]
+    declarations: [CarrosListaComponent, CarroCadastroComponent]
   })
   export class CarrosPageModule {}

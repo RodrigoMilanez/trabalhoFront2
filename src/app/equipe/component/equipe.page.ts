@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { EquipeInterface } from './interfaces/equipeModel';
+import { EquipeInterface } from '../interfaces/equipeModel';
 import { AlertController, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
-import { EquipeService } from './equipe.service';
+import { EquipeService } from '../equipe.service';
+import { AlertService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-equipe',
   templateUrl: './equipe.page.html',
-  styleUrls: ['./equipe.page.scss'],
+  styleUrls: ['../equipe.page.scss'],
 })
 export class EquipePage
   implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
@@ -14,7 +15,9 @@ export class EquipePage
 
   constructor(
     private alertController: AlertController,
-    private equipeService: EquipeService
+    private equipeService: EquipeService,
+    
+    private alertService: AlertService
   ) { }
 
   ionViewWillEnter() {
@@ -41,15 +44,15 @@ export class EquipePage
     observable.subscribe(
       (dados) => {
         this.equipes = dados;
-      },/*
+      },
       (erro) => {
         console.error(erro);
-        this.equipeService.error('Erro ao carregar listagem de autores');
-      }*/
+        this.alertService.error('Erro ao carregar listagem de autores');
+      }
     );
   }
 
-  /*confirmarExclusao(equipe: EquipeInterface) {
+  confirmarExclusao(equipe: EquipeInterface) {
     this.alertController
       .create({
         header: 'Confirmação de exclusão',
@@ -69,13 +72,13 @@ export class EquipePage
 
   private excluir(equipe: EquipeInterface) {
     if (equipe.id) {
-      this.EquipeService.excluir(equipe.id).subscribe(
+      this.equipeService.excluir(equipe.id).subscribe(
         () => this.listar(),
         (erro) => {
           console.error(erro);
-          this.alertService.error(`Não foi possível excluir o autor ${autor.nome}`);
+          this.alertService.error(`Não foi possível excluir a equipe ${equipe.nome}, talvez a equipe tenha pilotos ou carros vinculados`);
         }
       );
     }
-  }*/
+  }
 }

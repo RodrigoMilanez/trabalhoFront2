@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertController, ViewDidLeave, ViewWillEnter, ViewWillLeave } from "@ionic/angular";
-import { PilotoInterface } from "../piloto.model";
+import { Piloto } from "../pilotos.interface";
+import { Subscription } from "rxjs";
 import { PilotoService } from "../service/pilotos.service";
+import { AlertService } from "src/app/core/services";
+
+
 
 @Component({
     selector: 'app-pilotos',
@@ -9,69 +13,80 @@ import { PilotoService } from "../service/pilotos.service";
   })
   export class PilotosListaComponent
     implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
-    pilotos: PilotoInterface[] = [];
+    
+    searchTerm:string ="";
+
+    public pilotos: Piloto[] = [];
+    private subscription!: Subscription;
   
     constructor(
       private alertController: AlertController,
       private pilotoService: PilotoService,
-      private alertService: PilotoService
+      private alertService: AlertService
     ) { }
+  ionViewDidLeave(): void {
+    throw new Error("Method not implemented.");
+  }
+  ionViewWillLeave(): void {
+    throw new Error("Method not implemented.");
+  }
   
-    ionViewWillEnter() {
-      console.log('ionViewWillEnter');
-      this.listar();
-    }
+    ionViewWillEnter(): void {
+      this.listagem();
+  }
+
+  ngOnInit(): void {
+              
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
+  }
+
+  listagem() {
+      this.subscription = this.pilotoService
+          .getPilotos()
+          .subscribe(
+              (response) => {
+                  console.log('Response: ', response);
+                  this.pilotos = response;
+              },
+              (error) => {
+                  console.error(error);
+                  this.alertService.error(error);
+              }
+          );
+  }
   
-    ionViewDidEnter() {
-      console.log('ionViewDidEnter');
-    }
-  
-    ionViewWillLeave() {
-      console.log('ionViewWillLeave');
-    }
-  
-    ionViewDidLeave() {
-      console.log('ionViewDidLeave');
-    }
-  
-    ngOnInit() { }
-  
-    listar() {
-      const observable = this.pilotoService.getPilotos();
-      observable.subscribe(
-        (dados) => {
-          this.pilotos = dados;
-          console.log(dados)
-        },/*
-        (erro) => {
-          console.error(erro);
-          this.alertService.error('Erro ao carregar listagem de autores');
-        }*/
-      );
-    }
-  
-    confirmarExclusao(piloto: PilotoInterface) {
+    excluir(piloto: Piloto) {
       this.alertController
-        .create({
-          header: 'Confirmação de exclusão',
-          message: `Deseja excluir o autor ${piloto.nome}?`,
-          buttons: [
-            {
-              text: 'Sim',
-              handler: () => this.excluir(piloto),
-            },
-            {
-              text: 'Não',
-            },
-          ],
-        })
-        .then((alerta) => alerta.present());
-    }
-  
-    private excluir(piloto: PilotoInterface) {
-      if (piloto.id) {
-        this.pilotoService.excluir(piloto.id).subscribe(
-          () => this.listar())
-      }
-    }
+          .create({
+              header: 'Confirmação de exclusão',
+              message: `Deseja excluir o livro ${piloto.nome}?`,
+              buttons: [
+                  {
+                      text: 'Sim',
+                      handler: () => {
+                          this.pilotoService
+                              .remove(piloto)
+                              .subscribe({
+                                  next: () => {
+                                      this.pilotos = this.pilotos.filter(
+                                          l => l.id !== piloto.id
+                                      )
+                                  },
+                                  error: (error) => {
+                                      console.error(error);
+                                      this.alertService.error('Não foi possível excluir o piloto!');
+                                  }
+                              });;
+                      },
+                  },
+                  {
+                      text: 'Não',
+                  },
+              ],
+          })
+          .then((alerta) => alerta.present());
+  }
   }
